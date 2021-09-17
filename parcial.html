@@ -1,5 +1,49 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
-        <title></title>
+        <title>Diccionario Web</title> 
     </head>
+    <body style="background-color:powderblue;">
+        <center><h1>Diccionario Web</h1></center>
+
+        <center><p> Este es el diccionario web, por favor escribir solo palabras en ingles.</p></center>
+
+        <center> Ingrese palabra: <input id="search-input" type="search" required="required"></center>
+
+        <br/><br/>
+
+        <center> <input id="search-button" type="button" value="Buscar"/></center>
+
+      <br/><br/>
+
+      <h1 id="term"></h1>
+      <p id="definition"></p>
+      <p id="partof"></p>
+      <p id="example"></p>
+
+
+
+    </body>
 </html>
+
+<script>
+
+    document.getElementById("search-button").onclick = function() {
+        
+        let search = document.getElementById("search-input").value;
+        fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'+search)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            let def  = data.map( defi => defi.meanings[2])
+           document.getElementById("term").innerHTML = search
+           document.getElementById("definition").innerHTML = def
+           console.log(def)
+
+           let part  = data.map( defi => defi.origin)
+           document.getElementById("partof").innerHTML = part
+           console.log(part)
+
+        });
+    }
+</script>

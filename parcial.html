@@ -17,9 +17,13 @@
       <br/><br/>
 
       <h1 id="term"></h1>
-      <p id="definition"></p>
-      <p id="partof"></p>
-      <p id="example"></p>
+      <br/><br/>
+     Definition: <p id="definition"></p>
+     <br/><br/>
+     PartOfSpeech:  <p id="partof"></p>
+     <br/><br/>
+     Example:  <p id="example"></p>
+     <br/><br/>
 
 
 
@@ -35,14 +39,20 @@
         .then(response => response.json())
         .then(data => {
             console.log(data)
-            let def  = data.map( defi => defi.meanings[2])
+           
+            let def  = data.map( defi => defi.meanings[0].definitions[0].definition)
            document.getElementById("term").innerHTML = search
            document.getElementById("definition").innerHTML = def
            console.log(def)
 
-           let part  = data.map( defi => defi.origin)
+           let part  = data.map( defi => defi.meanings[0].partOfSpeech)
            document.getElementById("partof").innerHTML = part
            console.log(part)
+
+           let examp  = data.map( defi => defi.meanings[0].definitions[0].example)
+           document.getElementById("example").innerHTML = examp
+           console.log(examp)
+
 
         });
     }
